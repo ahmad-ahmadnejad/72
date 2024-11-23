@@ -1,4 +1,3 @@
-
 # React VPN Detector
 
 [![npm version](https://badge.fury.io/js/react-vpn-detector.svg)](https://badge.fury.io/js/react-vpn-detector)
@@ -35,7 +34,7 @@ yarn add react-vpn-detector
 
 ## Usage
 
-### 1. Basic Setup
+### Basic Setup
 
 Use the `useVPNDetector` hook in your React components to detect VPN usage and fetch user details.
 
@@ -45,7 +44,7 @@ import { useVPNDetector } from 'react-vpn-detector';
 
 const App = () => {
   const { isUsingVPN, data, error } = useVPNDetector({
-    apiUrl: 'https://api.ipgeolocation.io/ipgeo?apiKey=YOUR_API_KEY',
+    apiUrl: 'https://api.ipgeolocation.io/ipgeo?apiKey=YOUR_API_KEY', // you can get it free from https://ipgeolocation.io/
   });
 
   if (error) {
@@ -67,7 +66,11 @@ const App = () => {
 export default App;
 ```
 
-### 2. API Response Data
+### Note
+
+You can show vpn Detection in a Modal ,MessageBox ,Alert or just use that in a logic.
+
+### API Response Data
 
 When the API call is successful, you get detailed user information such as:
 
@@ -85,9 +88,11 @@ When the API call is successful, you get detailed user information such as:
 Here’s an example output styled with Tailwind CSS. Customize it to fit your app's theme.
 
 ### Output Example 1 (No VPN Detected)
+
 ![No VPN Detected](./exam1.png)
 
 ### Output Example 2 (VPN Detected)
+
 ![VPN Detected](./exam2.png)
 
 ---
@@ -97,10 +102,12 @@ Here’s an example output styled with Tailwind CSS. Customize it to fit your ap
 ### `useVPNDetector(options)`
 
 #### Parameters:
+
 - **`options`**:
   - **`apiUrl`**: _(required)_ The URL of the IP geolocation API. Example: `https://api.ipgeolocation.io/ipgeo?apiKey=YOUR_API_KEY`.
 
 #### Returns:
+
 - **`isUsingVPN`**: `boolean` - Indicates whether the user is using a VPN or proxy.
 - **`data`**: `object` - The complete API response containing user details.
 - **`error`**: `string | null` - Any error encountered during the API call.
@@ -132,45 +139,49 @@ import { useVPNDetector } from 'react-vpn-detector';
 
 const App = () => {
   const { isUsingVPN, data, error } = useVPNDetector({
-    apiUrl: 'https://api.ipgeolocation.io/ipgeo?apiKey=YOUR_API_KEY',
+    apiUrl: 'https://api.ipgeolocation.io/ipgeo?apiKey=YOUR_API_KEY', // you can get it free from https://ipgeolocation.io/
   });
 
   if (error) {
     return (
-      <div className="flex justify-center items-center h-screen bg-red-50">
-        <div className="p-4 bg-white shadow-md rounded-lg">
-          <h1 className="text-xl font-semibold text-red-500">Error</h1>
-          <p className="text-gray-700 mt-2">{error}</p>
+      <div className='flex justify-center items-center h-screen bg-red-50'>
+        <div className='p-4 bg-white shadow-md rounded-lg'>
+          <h1 className='text-xl font-semibold text-red-500'>Error</h1>
+          <p className='text-gray-700 mt-2'>{error}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10">
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full">
-        <h1 className="text-2xl font-bold mb-6 text-gray-800">VPN Detection</h1>
+    <div className='min-h-screen bg-gray-50 flex flex-col items-center py-10'>
+      <div className='bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full'>
+        <h1 className='text-2xl font-bold mb-6 text-gray-800'>VPN Detection</h1>
         <div
           className={`p-4 rounded-lg ${
-            isUsingVPN ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
+            isUsingVPN
+              ? 'bg-red-100 text-red-800'
+              : 'bg-green-100 text-green-800'
           }`}
         >
-          <p className="font-semibold">
+          <p className='font-semibold'>
             VPN Status: {isUsingVPN ? 'VPN Detected' : 'No VPN detected'}
           </p>
         </div>
         {data && (
-          <div className="mt-6 space-y-6">
-            <div className="flex items-center space-x-4">
+          <div className='mt-6 space-y-6'>
+            <div className='flex items-center space-x-4'>
               <img
                 src={data.country_flag}
                 alt={`Flag of ${data.country_name}`}
-                className="w-12 h-12 rounded-lg"
+                className='w-12 h-12 rounded-lg'
               />
               <div>
-                <h2 className="text-lg font-bold text-gray-800">{data.country_name}</h2>
-                <p className="text-gray-600">{data.country_name_official}</p>
-                <p className="text-gray-600">
+                <h2 className='text-lg font-bold text-gray-800'>
+                  {data.country_name}
+                </h2>
+                <p className='text-gray-600'>{data.country_name_official}</p>
+                <p className='text-gray-600'>
                   {data.city}, {data.state_prov}, {data.country_capital}
                 </p>
               </div>
@@ -194,6 +205,8 @@ Feel free to submit issues or contribute to this project via GitHub:
 
 ---
 
-## License
+## my website
 
-This package is licensed under the ISC License.
+you can see my article,s at [frontendi.com](https://frontendi.com/)
+[find me at telegram](https://t.me/A_A_DEV)
+[or linkedin](https://www.linkedin.com/in/ahmad-ahmadnejad/)
