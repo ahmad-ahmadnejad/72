@@ -1,18 +1,25 @@
 {
   "name": "react-vpn-detector",
-  "version": "1.0.0",
-  "description": "Vpn Detector For React",
-  "main": "index.js",
+  "version": "1.0.1",
+  "description": "VPN Detector For React",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "build": "tsup src/index.ts --format esm,cjs --dts"
-},
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup src/index.ts --format esm,cjs --dts"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ahmad-ahmadnejad/react-vpn-detector.git"
   },
   "keywords": [
-    "react"
+    "react",
+    "vpn",
+    "detector"
   ],
   "author": "ahmad.ahmadnejad.1999@gmail.com",
   "license": "ISC",

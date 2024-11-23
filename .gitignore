@@ -1,2 +1,6 @@
-
-/node_modules
+src/
+usage-example.ts
+node_modules/
+*.log
+tsconfig.json
+.gitignore
