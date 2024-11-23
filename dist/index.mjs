@@ -21,6 +21,36 @@ var __async = (__this, __arguments, generator) => {
 
 // src/hook.ts
 import { useState, useEffect } from "react";
+var useVPNDetector = (options) => {
+  const [result, setResult] = useState({
+    isUsingVPN: false,
+    data: null,
+    error: null
+  });
+  useEffect(() => {
+    let isMounted = true;
+    const fetchVPNStatus = () => __async(void 0, null, function* () {
+      try {
+        const response = yield fetch(options.apiUrl);
+        const data = yield response.json();
+        const isUsingVPN = /vpn|proxy/i.test(data.isp) || // Example: Check if the ISP name indicates a VPN/proxy
+        /vpn|proxy/i.test(data.connection_type || "");
+        if (isMounted) {
+          setResult({ isUsingVPN, data, error: null });
+        }
+      } catch (error) {
+        if (isMounted) {
+          setResult({ isUsingVPN: false, data: null, error: error.message });
+        }
+      }
+    });
+    fetchVPNStatus();
+    return () => {
+      isMounted = false;
+    };
+  }, [options.apiUrl]);
+  return result;
+};
 
 // src/detector.ts
 import axios from "axios";
@@ -39,21 +69,6 @@ var detectVPN = (options) => __async(void 0, null, function* () {
     return { isUsingVPN: false, error: error.message };
   }
 });
-
-// src/hook.ts
-var useVPNDetector = (options) => {
-  const [result, setResult] = useState({
-    isUsingVPN: false
-  });
-  useEffect(() => {
-    const checkVPN = () => __async(void 0, null, function* () {
-      const detectionResult = yield detectVPN(options);
-      setResult(detectionResult);
-    });
-    checkVPN();
-  }, [options]);
-  return result;
-};
 export {
   detectVPN,
   useVPNDetector

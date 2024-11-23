@@ -8,7 +8,7 @@ export interface VPNDetectorOptions {
 export interface VPNDetectionResult {
   isUsingVPN: boolean;
   data?: any;
-  error?: string;
+  error?: any;
 }
 
 export const detectVPN = async (

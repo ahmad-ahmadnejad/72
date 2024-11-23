@@ -57,6 +57,36 @@ module.exports = __toCommonJS(src_exports);
 
 // src/hook.ts
 var import_react = require("react");
+var useVPNDetector = (options) => {
+  const [result, setResult] = (0, import_react.useState)({
+    isUsingVPN: false,
+    data: null,
+    error: null
+  });
+  (0, import_react.useEffect)(() => {
+    let isMounted = true;
+    const fetchVPNStatus = () => __async(void 0, null, function* () {
+      try {
+        const response = yield fetch(options.apiUrl);
+        const data = yield response.json();
+        const isUsingVPN = /vpn|proxy/i.test(data.isp) || // Example: Check if the ISP name indicates a VPN/proxy
+        /vpn|proxy/i.test(data.connection_type || "");
+        if (isMounted) {
+          setResult({ isUsingVPN, data, error: null });
+        }
+      } catch (error) {
+        if (isMounted) {
+          setResult({ isUsingVPN: false, data: null, error: error.message });
+        }
+      }
+    });
+    fetchVPNStatus();
+    return () => {
+      isMounted = false;
+    };
+  }, [options.apiUrl]);
+  return result;
+};
 
 // src/detector.ts
 var import_axios = __toESM(require("axios"));
@@ -75,21 +105,6 @@ var detectVPN = (options) => __async(void 0, null, function* () {
     return { isUsingVPN: false, error: error.message };
   }
 });
-
-// src/hook.ts
-var useVPNDetector = (options) => {
-  const [result, setResult] = (0, import_react.useState)({
-    isUsingVPN: false
-  });
-  (0, import_react.useEffect)(() => {
-    const checkVPN = () => __async(void 0, null, function* () {
-      const detectionResult = yield detectVPN(options);
-      setResult(detectionResult);
-    });
-    checkVPN();
-  }, [options]);
-  return result;
-};
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   detectVPN,
