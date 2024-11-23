@@ -1,6 +1,6 @@
 {
   "name": "react-vpn-detector",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "VPN Detector For React",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
